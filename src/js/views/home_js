@@ -1,45 +1,127 @@
-import React, {useEffect, useState, useContext } from "react";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import $ from 'jquery';
+// import Popper from 'popper.js';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
+import React, {useEffect, useState} from "react";
 import "../../styles/home.css";
-
-import { Link, useParams } from "react-router-dom";
-import { Context } from "../store/appContext.js"
 
 
 export const Home = () => {
-  const { store, actions } = useContext(Context);
-	const params = useParams();
+  const [characterList, setCharacterList] = useState([]); /**{name:"pepito", height:"1m", mass:"gordo", hair_color:"brown", skin_color:"curtido"} */
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  let characterList = store.characterList; 
-  let loading = store.loading;
-  let error = store.error;
+  const [vehicleList, setVehicleList] = useState([]);
+  const [loading2, setLoading2] = useState(true);
+  const [error2, setError2] = useState(null);
 
-  let vehicleList= store.vehicleList;
-  let loading2 = store.loading2;
-  let error2 = store.error2
+  const [planetList, setPlanetList] = useState([]);
+  const [loading3, setLoading3] = useState(true);
+  const [error3, setError3] = useState(null);
 
-  let planetList = store.planetList;
-  let loading3 = store.loading3;
-  let error3 = store.error3;
+  // const fetchingStars = (nameList) =>{
+  //   fetch('https://www.swapi.tech/api/'+{nameList})
+  //     .then(res => res.json())
+  //     .then(data => console.log(data))
+  //     .catch(err => console.error(err)
+  //     )
+  // };
 
-  let faveList = store.favorites; 
+  const fetchingStars = () =>{
+      fetchingCharacters();
+      fetchingVehicles();
+      fetchingPlanets();
+    };
 
-  const addFavorite = (itemName, itemId) =>{   //to add a new item to the list
-        
-    if(Object.values(store.favorites).includes(itemName)){
-      alert("The selected item is already on your list");
-    }else{
-      setStore({ favorites: faveList => ([...faveList, {name:itemName, id:itemId}]) })
-    }
-    
-    
-  };
+    const fetchingCharacters = () =>{
+      // fetch('https://swapi.dev/api/people')
+      //   .then(res => res.json())
+      //   .then(data => {setCharacterList(data.results);console.log(characterList)})
+      //   .catch(err => console.error(err)
+      //   )
 
-  const deleteFavorite = (itemName, itemId) =>{   //to delete an item 
-    
-    setStore({favorites: store.favorites.filter((item, index) => itemId!==index)});
-  }; 
+      fetch('https://swapi.dev/api/people')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            'This is an HTTP error: The status is ${response.status}'
+          );
+        }
+        return response.json();
+      })
+      .then((actualData) => {   /*name, height, mass, hair_color, skin_color, eye_color, birth_year, gender, homeworld, films, species, vehicles, starships, created, edited, url */
+      setCharacterList(Object.entries(actualData.results));/*console.log(actualData.results);console.log("Otra vez...");console.log(characterList);*/
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setCharacterList(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
- 
+    };
+
+/********************************* */
+    const fetchingVehicles = () =>{
+      fetch('https://swapi.dev/api/vehicles')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            'This is an HTTP error: The status is ${response.status}'
+          );
+        }
+        return response.json();
+      })
+      .then((actualData) => {   
+      setVehicleList(Object.entries(actualData.results));console.log(actualData.results);console.log("Vehicles...");console.log(vehicleList);
+        setError2(null);
+      })
+      .catch((err) => {
+        setError2(err.message);
+        setVehicleList(null);
+      })
+      .finally(() => {
+        setLoading2(false);
+      });
+    };
+
+    const fetchingPlanets = () =>{       
+      fetch('https://swapi.dev/api/planets')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            'This is an HTTP error: The status is ${response.status}'
+          );
+        }
+        return response.json();
+      })
+      .then((actualData) => {   
+      setPlanetList(Object.entries(actualData.results));
+        setError3(null);
+      })
+      .catch((err) => {
+        setError3(err.message);
+        setPlanetList(null);
+      })
+      .finally(() => {
+        setLoading3(false);
+      });
+
+    };
+
+    const More = () =>{
+      
+    };
+    const addFavorite = () =>{
+      
+    };
+
+
+    useEffect(() => {
+      fetchingStars();
+   }, []);
 
   return (
     <div className="mt-5 bg-secondary"> 
@@ -64,11 +146,20 @@ export const Home = () => {
                 <img src={'https://starwars-visualguide.com/assets/img/characters/'+(i+1) + '.jpg'} onError={({ currentTarget }) => { currentTarget.onerror = null; currentTarget.src="https://starwars-visualguide.com/assets/img/big-placeholder.jpg";}} className="card-img-top" alt={items[1].name}/>
                 <div className="card-body">
                   <h5 className="card-title text-warning text-center">{items[1].name}</h5>
+                  {/*<p className="card-text text-secondary">
+                    <ul className="list-unstyled p-2">
+                      <li>height: {items[1].height}</li>
+                      <li>mass: {items[1].mass}</li>
+                      <li>hair_color: {items[1].hair_color}</li>
+                      <li>skin_color: {items[1].skin_color}</li>
+                      <li>eye_color: {items[1].eye_color}</li>
+                      <li>birth_year: {items[1].birth_year}</li>
+                      <li>gender: {items[1].gender}</li>
+                    </ul>
+                  </p>*/}
                   <div className=" text-center">
-                  <Link to={"/character/" + i}>							
-                  <button type="button" class="btn btn-warning">Learn More</button>
-                  </Link>                  
-              <a href="" className="btn btn-warning m-2" onClick={addFavorite(items[1].name, i)}>♡</a>
+                    <a href="#" className="btn btn-warning " onClick={More()}>Learn More</a>
+              <a href="#" className="btn btn-warning m-2" onClick={addFavorite()}>♡</a>
               </div>
                   
                 </div>
@@ -109,13 +200,18 @@ export const Home = () => {
                 <div className="card-body">
                   <h5 className="card-title text-warning text-center">{items[1].name}</h5>
                   <p className="card-text text-secondary">
-                    
+                    <ul className="list-unstyled p-2">
+                      <li>height: {items[1].model}</li>
+                      <li>manufacturer: {items[1].manufacturer}</li>
+                      <li>cost in credits: {items[1].cost_in_credits}</li>
+                      <li>length: {items[1].length}</li>
+                      <li>max atmosphering speed: {items[1].max_atmosphering_speed}</li>
+                      <li>created: {items[1].created}</li>
+                    </ul>
                   </p>
                   <div className=" text-center">
-                    <Link to={"/vehicle/" + i}>
-                      <button type="button" class="btn btn-warning">Learn More</button>
-                    </Link>  
-              <a href="#" className="btn btn-warning m-2" onClick={addFavorite(items[1].name, i)}>♡</a>
+                    <a href="#" className="btn btn-warning " onClick={More()}>Learn More</a>
+              <a href="#" className="btn btn-warning m-2" onClick={addFavorite()}>♡</a>
               </div>
                   
                 </div>
@@ -156,13 +252,18 @@ export const Home = () => {
                 <div className="card-body">
                   <h5 className="card-title text-warning text-center">{items[1].name}</h5>
                   <p className="card-text text-secondary">
-                    
+                    <ul className="list-unstyled p-2">
+                      <li>rotation period: {items[1].rotation_period}</li>
+                      <li>orbital period: {items[1].orbital_period}</li>
+                      <li>diameter: {items[1].diameter}</li>
+                      <li>climate: {items[1].climate}</li>
+                      <li>gravity: {items[1].gravity}</li>
+                      <li>terrain: {items[1].terrain}</li>
+                    </ul>
                   </p>
                   <div className=" text-center">
-                    <Link to={"/planet/" + i}>
-                      <button type="button" class="btn btn-warning">Learn More</button>
-                    </Link>                    
-                    <a href="#" className="btn btn-warning m-2" onClick={addFavorite(items[1].name, i)}>♡</a>
+                    <a href="#" className="btn btn-warning " onClick={More()}>Learn More</a>
+              <a href="#" className="btn btn-warning m-2" onClick={addFavorite()}>♡</a>
               </div>
                   
                 </div>
