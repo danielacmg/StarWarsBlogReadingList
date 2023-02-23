@@ -34,3 +34,7 @@
       height: 11em;
     }
   }
+
+  .deleteBtn{
+    width: 18px;
+  }
