@@ -12,7 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			error3:null,
 
 			favorites:[],
-
+			emptyFav:true,
 		},
 		actions: {
 			
@@ -62,12 +62,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  
 			  
 			addFavorite : (itemName, itemId) =>{   //to add a new item to the favorite list
-				const store = getStore();
-				console.log("item name: "+itemName);
+				const store = getStore();				
 				if((store.favorites).includes(itemName)){
 					alert("The selected item is already on your list");
 				}else{
 					setStore({ favorites: [...store.favorites, itemName] }); 
+					setStore({ emptyFav: false });
 				}						
 			},
 		
@@ -75,6 +75,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				if((store.favorites).includes(itemName)){
 					setStore({favorites: store.favorites.filter((item, index) => itemId!==index)})
+				}
+				if(store.favorites.length===0){
+					setStore({ emptyFav: true });
 				}
 			}, 
 		}

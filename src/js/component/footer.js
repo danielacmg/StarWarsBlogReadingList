@@ -7,12 +7,13 @@ import { Context } from "../store/appContext.js"
 export const Footer = () => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
-
+	
     let faveList = store.favorites; 
+	let emptyFav = store.emptyFav;
 
 return(	
 	<footer className="footer mt-auto py-3 text-center">
-		 <h1 className="text-warning text-left">Favorites</h1>
+		 {!emptyFav && <h1 className="text-warning text-left">Favorites</h1>}
 		 
 		 <ul className="list-unstyled">
 		 {faveList.map((items, i) => ( 
