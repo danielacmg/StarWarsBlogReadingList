@@ -11,8 +11,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			loading3:true,
 			error3:null,
 
-			favorites:[],
-			emptyFav:true,
+			favorites:localStorage.getItem('favorites')? JSON.parse(localStorage.getItem('favorites')) : [], //to bring favorites from localstorage
+			emptyFav: localStorage.getItem('favorites')? false: true,
 		},
 		actions: {
 			
