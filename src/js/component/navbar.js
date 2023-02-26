@@ -23,19 +23,19 @@ export const Navbar = () => {
 				</span>
 			</Link>
 			<div className="dropdown">
-			<button className="btn btn-warning dropdown-toggle" type="button" id="dropdownFavorites" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Favorites ♡
+				<button className="btn btn-warning dropdown-toggle" type="button" id="dropdownFavorites" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Favorites ♡
 				</button>
-				<div className="dropdown-menu p-0 m-0" aria-labelledby="dropdownMenuButton">
-					<ul aria-labelledby="dropdownFavorites">
+				<div className="dropdown-menu   end-0" aria-labelledby="dropdownMenuButton">
+					{/* <ul aria-labelledby="dropdownFavorites"> */}
 						{faveList.map((items, i) => ( 
 								
-							<li className="dropdown-item" href="" key={i}> {items.name+"  "} 
+							<a className="dropdown-item" key={i}> {items.name+"  "} 
 							<span onClick={() => actions.deleteFavorite(items,i)}><img src={imgDelete} className="deleteBtn" data-toggle="tooltip" data-placement="top" title="Remove from favorite"/></span>
 							{/* <button className="btn btn-outline-danger btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Remove from favorite"  onClick={() => actions.deleteFavorite(items,i)}>X</button> */}
-							</li>
+							</a>
 							))}
-					</ul>
+					{/* </ul> */}
 				</div>
 				</div>
 
