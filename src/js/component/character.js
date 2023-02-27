@@ -44,7 +44,7 @@ export const Character = () => {
 							</p>
 							<p className="card-text">
 								<Link to={"/"}><button type="button" class="btn btn-warning">Home</button></Link>
-								<button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items,i)}>♡</button>
+								<button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items.name,"character",i)}>♡</button>
 							</p>
 						</div>
 					

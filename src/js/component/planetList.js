@@ -45,9 +45,9 @@ export const PlanetList = () => {
                   </p>
                   <div className=" text-center">
                     <Link to={"/planet/" + i}>
-                      <button type="button" class="btn btn-warning">Learn More</button>
+                      <button type="button" className="btn btn-warning">Learn More</button>
                     </Link>                    
-                    <button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items,i)}>♡</button>
+                    <button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items.name,"planet",i)}>♡</button>
               </div>
                   
                 </div>

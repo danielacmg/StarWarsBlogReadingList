@@ -38,9 +38,9 @@ export const CharacterList = () => {
                   <h5 className="card-title text-warning text-center">{items.name}</h5>
                   <div className=" text-center">
                   <Link to={"/character/" + i}>							
-                  <button type="button" class="btn btn-warning">Learn More</button>
+                  <button type="button" className="btn btn-warning">Learn More</button>
                   </Link>                  
-                  <button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items,i)}>♡</button>
+                  <button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items.name,"character",i)}>♡</button>
               </div>
                   
                 </div>

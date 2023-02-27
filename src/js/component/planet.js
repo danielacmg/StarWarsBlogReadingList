@@ -42,7 +42,7 @@ export const Planet = props => {
 					</p>
 					<p className="card-text">
                         <Link to={"/"}><button type="button" className="btn btn-warning">Home</button></Link>
-						<button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items,i)}>♡</button>
+						<button className="btn btn-warning m-2" onClick={() => actions.addFavorite(items.name,"planet",i)}>♡</button>
 					</p>
 				</div>
 				</div>

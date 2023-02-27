@@ -23,12 +23,18 @@ export const Navbar = () => {
 			</Link>
 			<div className="dropdown">
 				<button className="btn btn-warning dropdown-toggle" type="button" id="dropdownFavorites" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Favorites ♡ <span className="bg-secondary rounded p-1">{faveList.length}</span>
+					Favorites ♡ {faveList.length>0 && <span className="bg-secondary rounded p-1">{faveList.length}</span>}
 				</button>
-				<div className="dropdown-menu   end-0" aria-labelledby="dropdownMenuButton">					
-					{faveList.map((items, i) => ( 								
-						<a className="dropdown-item" key={i}> {items.name+"  "} 
-							<span onClick={() => actions.deleteFavorite(items,i)}><img src={imgDelete} className="deleteBtn" data-toggle="tooltip" data-placement="top" title="Remove from favorite"/></span>						
+ 				<div className="dropdown-menu end-0" aria-labelledby="dropdownMenuButton">	
+				{!faveList.length>0 &&  <h6 class="dropdown-header">Add a favorite</h6>}				
+					{faveList.map((items, i) => ( 
+						<a className="dropdown-item" key={i}>
+							<Link to={"/"+items.type+"/" + items.id} className=" text-decoration-none text-dark">															
+								 {items.name+"  "}
+							</Link>
+							<span onClick={() => actions.deleteFavorite(items,i)} >
+								<img src={imgDelete} className="deleteBtn ml-2" data-toggle="tooltip" data-placement="top" title="Remove from favorite"/>
+							</span>
 						</a>
 					))}
 					{localStorage.setItem("favorites", JSON.stringify(faveList))} {/* to save favorites in local storage */}					

@@ -13,7 +13,7 @@ export const Footer = () => {
 
 return(	
 	<footer className="footer mt-auto py-3 text-center">
-		 {!emptyFav && <h1 className="text-warning text-left">Favorites</h1>}
+		 {faveList.length>0 && <h1 className="text-warning text-left">Favorites</h1>}
 		 
 		 <ul className="list-unstyled">
 		 {faveList.map((items, i) => ( 

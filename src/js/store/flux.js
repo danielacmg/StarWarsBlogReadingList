@@ -61,13 +61,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			  },  
 			  
 			  
-			addFavorite : (itemName, itemId) =>{   //to add a new item to the favorite list
-				const store = getStore();				
-				if((store.favorites).includes(itemName)){
-					alert("The selected item is already on your list");
-				}else{
-					setStore({ favorites: [...store.favorites, itemName] }); 
-					setStore({ emptyFav: false });
+			addFavorite : (itemName, itemType, itemId) =>{   //to add a new item to the favorite list
+				const store = getStore();		
+				if (store.favorites.some(items => items.name === itemName)){
+					alert(itemName + " is already on your list");
+				}else{ console.log(Object.values(store.favorites)); 
+					setStore({ favorites: [...store.favorites, {name:itemName, type:itemType, id:itemId}] }); 
+					setStore({ emptyFav: false });console.log("adding faves "+store.emptyFav);
 				}						
 			},
 		
@@ -76,8 +76,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if((store.favorites).includes(itemName)){
 					setStore({favorites: store.favorites.filter((item, index) => itemId!==index)})
 				}
-				if(store.favorites.length===0){
-					setStore({ emptyFav: true });
+				if(!store.favorites.length>0){
+					setStore({ emptyFav: true }); 
 				}
 			}, 
 		}

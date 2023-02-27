@@ -37,4 +37,9 @@
 
   .deleteBtn{
     width: 18px;
+    float:right;
   }
+
+  .dropdown-item:not(:disabled):not(:disabled):active {
+    background-color: #ffc107;
+ } 
